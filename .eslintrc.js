@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    jest: true,
   },
   extends: [
     'plugin:react/recommended',
@@ -30,6 +31,7 @@ module.exports = {
       1,
       {
         extensions: [
+          '.ts',
           '.tsx',
         ],
       },
@@ -42,6 +44,8 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'react/react-in-jsx-scope': 'off',
     'linebreak-style': 0,
     'no-console': 'error',
   },
