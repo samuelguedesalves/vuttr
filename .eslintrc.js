@@ -23,9 +23,6 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-    ],
     'react/function-component-definition': [
       2,
       {
@@ -65,6 +62,7 @@ module.exports = {
         some: ['nesting', 'id'],
       },
     }],
+    '@typescript-eslint/no-unused-vars': 'off',
   },
   settings: {
     'import/resolver': {
