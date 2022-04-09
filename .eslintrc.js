@@ -60,6 +60,11 @@ module.exports = {
     'no-unused-expressions': ['error', { allowShortCircuit: true, allowTernary: true }],
     'react/jsx-no-bind': 'off',
     'no-empty-function': 'off',
+    'jsx-a11y/label-has-associated-control': ['error', {
+      required: {
+        some: ['nesting', 'id'],
+      },
+    }],
   },
   settings: {
     'import/resolver': {
