@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
+import { PrimitiveAtom, useAtom } from 'jotai';
 import { Button } from '../../atoms/Button';
 import { Checkbox } from '../../atoms/Checkbox';
 import { Input } from '../../atoms/Input';
@@ -9,11 +10,32 @@ import { Styles } from './styles';
 import searchIcon from '../../../assets/search-icon.svg';
 import addIcon from '../../../assets/add-icon.svg';
 
-export const ActionBar: React.FC = () => {
+type ActionBarProps = {
+  isOpenAddNewToolModalAtom: PrimitiveAtom<boolean>;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+  setSearchInTagsOnly: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const ActionBar: React.FC<ActionBarProps> = ({
+  isOpenAddNewToolModalAtom,
+  setSearchQuery,
+  setSearchInTagsOnly,
+}) => {
+  const [
+    isOpenAddNewToolModal,
+    setIsOpenAddNewToolModal,
+  ] = useAtom(isOpenAddNewToolModalAtom);
+
   const [query, setQuery] = useState<string>('');
   const [applyOnlyAtTags, setApplyOnlyAtTags] = useState<boolean>(false);
 
-  console.log(applyOnlyAtTags);
+  useEffect(() => {
+    setSearchQuery(query);
+  }, [query]);
+
+  useEffect(() => {
+    setSearchInTagsOnly(applyOnlyAtTags);
+  }, [applyOnlyAtTags]);
 
   function handleSearchInput(event: React.ChangeEvent<HTMLInputElement>) {
     setQuery(event.target.value);
@@ -23,8 +45,8 @@ export const ActionBar: React.FC = () => {
     setApplyOnlyAtTags(value);
   }
 
-  function handleClickOnButton() {
-    console.log('here we call modal to add a new tool');
+  function handleRequestToOpenModal() {
+    setIsOpenAddNewToolModal(() => true);
   }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -54,7 +76,7 @@ export const ActionBar: React.FC = () => {
       <Button
         textButton="Add"
         icon={addIcon}
-        onClick={handleClickOnButton}
+        onClick={handleRequestToOpenModal}
       />
     </Styles.Container>
   );
