@@ -13,10 +13,23 @@ type ToolsContextProps = {
 const ToolsContext = createContext<ToolsContextProps>({} as ToolsContextProps);
 
 export const ToolsContextProvider: React.FC = ({ children }) => {
-  const [tools, setTools] = useState<Tool[]>([]);
+  const [tools, setTools] = useState<Tool[]>(() => {
+    const storage = localStorage.getItem('@VUTTR:tools');
+
+    if (storage) {
+      const storagedTools = JSON.parse(storage);
+      return storagedTools;
+    }
+
+    return [];
+  });
 
   function removeTool(toolId: string) {
-    setTools(() => tools.filter(({ id }) => id !== toolId));
+    const newToolsList = [...tools.filter(({ id }) => id !== toolId)];
+
+    setTools(newToolsList);
+
+    localStorage.setItem('@VUTTR:tools', JSON.stringify(newToolsList));
   }
 
   function addTool(tool: Omit<Tool, 'id'>) {
@@ -25,10 +38,14 @@ export const ToolsContextProvider: React.FC = ({ children }) => {
       ...tool,
     };
 
-    setTools([
+    const newToolsList = [
       newTool,
       ...tools,
-    ]);
+    ];
+
+    setTools(newToolsList);
+
+    localStorage.setItem('@VUTTR:tools', JSON.stringify(newToolsList));
   }
 
   return (
