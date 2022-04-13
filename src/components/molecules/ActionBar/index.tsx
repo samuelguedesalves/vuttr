@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-import { PrimitiveAtom, useAtom } from 'jotai';
 import { Button } from '../../atoms/Button';
 import { Checkbox } from '../../atoms/Checkbox';
 import { Input } from '../../atoms/Input';
@@ -10,43 +9,23 @@ import { Styles } from './styles';
 import searchIcon from '../../../assets/search-icon.svg';
 import addIcon from '../../../assets/add-icon.svg';
 
-type ActionBarProps = {
-  isOpenAddNewToolModalAtom: PrimitiveAtom<boolean>;
-  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
-  setSearchInTagsOnly: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import { useModal } from '../../../hooks/modal';
+import { useSearch } from '../../../hooks/search';
 
-export const ActionBar: React.FC<ActionBarProps> = ({
-  isOpenAddNewToolModalAtom,
-  setSearchQuery,
-  setSearchInTagsOnly,
-}) => {
-  const [
-    isOpenAddNewToolModal,
-    setIsOpenAddNewToolModal,
-  ] = useAtom(isOpenAddNewToolModalAtom);
-
-  const [query, setQuery] = useState<string>('');
-  const [applyOnlyAtTags, setApplyOnlyAtTags] = useState<boolean>(false);
-
-  useEffect(() => {
-    setSearchQuery(query);
-  }, [query]);
-
-  useEffect(() => {
-    setSearchInTagsOnly(applyOnlyAtTags);
-  }, [applyOnlyAtTags]);
+export const ActionBar: React.FC = () => {
+  const { openModal } = useModal();
+  const { searchQuery, setSearchQuery, setSearchOnlyInTags } = useSearch();
 
   function handleSearchInput(event: React.ChangeEvent<HTMLInputElement>) {
-    setQuery(event.target.value);
+    setSearchQuery(event.target.value);
   }
 
   function handleCheckbox(value: boolean) {
-    setApplyOnlyAtTags(value);
+    setSearchOnlyInTags(value);
   }
 
   function handleRequestToOpenModal() {
-    setIsOpenAddNewToolModal(() => true);
+    openModal();
   }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -64,7 +43,7 @@ export const ActionBar: React.FC<ActionBarProps> = ({
           icon={searchIcon}
           placeholder="Search..."
           onChange={handleSearchInput}
-          value={query}
+          value={searchQuery}
         />
 
         <Checkbox

@@ -1,25 +1,15 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
-import { PrimitiveAtom, useAtom } from 'jotai';
 import { Container } from './styles';
 import closeImg from '../../../assets/close-icon.svg';
 import { useTools } from '../../../hooks/tools';
+import { useModal } from '../../../hooks/modal';
 
 Modal.setAppElement('#root');
 
-type AddNewToolModalProps = {
-  isOpenAddNewToolModalAtom: PrimitiveAtom<boolean>;
-}
-
-export const AddNewToolModal: React.FC<AddNewToolModalProps> = ({
-  isOpenAddNewToolModalAtom,
-}) => {
-  const [
-    isOpenAddNewToolModal,
-    setIsOpenAddNewToolModal,
-  ] = useAtom(isOpenAddNewToolModalAtom);
-
+export const AddNewToolModal: React.FC = () => {
   const { addTool } = useTools();
+  const { modalStatus, closeModal } = useModal();
 
   const [toolName, setToolName] = useState<string>('');
   const [toolLink, setToolLink] = useState<string>('');
@@ -36,7 +26,7 @@ export const AddNewToolModal: React.FC<AddNewToolModalProps> = ({
       tags: toolTags,
     });
 
-    setIsOpenAddNewToolModal(() => false);
+    closeModal();
   }
 
   function handleToolTags(event: React.ChangeEvent<HTMLInputElement>) {
@@ -51,12 +41,12 @@ export const AddNewToolModal: React.FC<AddNewToolModalProps> = ({
     <Modal
       overlayClassName="react-modal-overlay"
       className="react-modal-content"
-      isOpen={isOpenAddNewToolModal}
-      onRequestClose={() => setIsOpenAddNewToolModal(() => false)}
+      isOpen={modalStatus}
+      onRequestClose={() => closeModal()}
     >
       <button
         type="button"
-        onClick={() => setIsOpenAddNewToolModal(() => false)}
+        onClick={() => closeModal()}
       >
         <img src={closeImg} alt="Fechar" />
       </button>

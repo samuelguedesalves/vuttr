@@ -64,6 +64,9 @@ module.exports = {
     }],
     '@typescript-eslint/no-unused-vars': 'off',
   },
+  globals: {
+    JSX: true,
+  },
   settings: {
     'import/resolver': {
       node: {

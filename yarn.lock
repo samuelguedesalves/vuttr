@@ -6026,11 +6026,6 @@ jest@^27.4.3, jest@^27.5.1:
     import-local "^3.0.2"
     jest-cli "^27.5.1"
 
-jotai@^1.6.2:
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/jotai/-/jotai-1.6.2.tgz#101193b24701ce0621eb017f8dc3d35be3f14da0"
-  integrity sha512-WglyuXX67f8QPCOX5tDR0N9GhasOV1+IQ3piaF4owr2wBn2CV51T8zbw01ZCme/24JKJilFe6+aA29PJx+jsQw==
-
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/js-tokens/-/js-tokens-4.0.0.tgz"
