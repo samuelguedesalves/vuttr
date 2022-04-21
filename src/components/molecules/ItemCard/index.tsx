@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRemoveModal } from '../../../hooks/removeModal';
 import { useTools } from '../../../hooks/tools';
 import { Tool } from '../../../types/Tool';
 import { Container } from './styles';
@@ -10,7 +11,11 @@ type ItemCardProps = {
 export const ItemCard: React.FC<ItemCardProps> = ({
   tool,
 }) => {
-  const { removeTool } = useTools();
+  const { openModal } = useRemoveModal();
+
+  function handleRemoveTool() {
+    openModal(tool);
+  }
 
   return (
     <Container>
@@ -32,7 +37,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({
       <button
         className="button-remove-item"
         type="button"
-        onClick={() => removeTool(tool.id)}
+        onClick={() => handleRemoveTool()}
       >
         Remover
       </button>

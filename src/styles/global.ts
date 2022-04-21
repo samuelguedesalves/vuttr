@@ -56,7 +56,7 @@ export const globalStyles = globalCss({
     position: 'relative',
   },
 
-  '.react-modal-content button[type="button"]': {
+  '.react-modal-content button[type="button"].close-modal-button': {
     position: 'absolute',
     width: 14,
     height: 14,

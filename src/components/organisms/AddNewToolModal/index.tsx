@@ -47,6 +47,7 @@ export const AddNewToolModal: React.FC = () => {
       <button
         type="button"
         onClick={() => closeModal()}
+        className="close-modal-button"
       >
         <img src={closeImg} alt="Fechar" />
       </button>
