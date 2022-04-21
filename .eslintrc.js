@@ -5,6 +5,8 @@ module.exports = {
     jest: true,
   },
   extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'airbnb',
   ],
@@ -45,9 +47,25 @@ module.exports = {
       },
     ],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'max-len': ['error', { code: 80, ignoreUrls: true, ignoreStrings: true }],
+    'no-unused-vars': 'off',
     'react/react-in-jsx-scope': 'off',
     'linebreak-style': 0,
-    'no-console': 'error',
+    'no-console': 'warn',
+    'import/prefer-default-export': 'off',
+    'react/require-default-props': 'off',
+    'no-unused-expressions': ['error', { allowShortCircuit: true, allowTernary: true }],
+    'react/jsx-no-bind': 'off',
+    'no-empty-function': 'off',
+    'jsx-a11y/label-has-associated-control': ['error', {
+      required: {
+        some: ['nesting', 'id'],
+      },
+    }],
+    '@typescript-eslint/no-unused-vars': 'off',
+  },
+  globals: {
+    JSX: true,
   },
   settings: {
     'import/resolver': {
